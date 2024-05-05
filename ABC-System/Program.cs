@@ -7,6 +7,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace ABC_System
 {
@@ -27,11 +28,12 @@ namespace ABC_System
             ExtraLargeStrategy _extraLargeStrategy= new ExtraLargeStrategy();
             TowStrategy _tow= new TowStrategy();
             NotTowStrategy _notTow= new NotTowStrategy();
-            Connector _con = new Connector(_driver, _small, _tow);
+            Vehicle _bike = new motorbike(" ",_driver, _small, _tow);
+            Vehicle _light = new lightvehicle(" ", _driver, _small, _tow);
+            Vehicle _heavy = new heavyvehicle(" ", _driver, _small, _tow);
             char sound = 'c';
             char wifi = 'c';
             char camera='c';
-            
             _carrierList.Add(new GetCarrier(_driver));
             _carrierList.Add(new GetCarrier(_two));
             _carrierList.Add(new GetCarrier(_five));
@@ -90,285 +92,760 @@ namespace ABC_System
             }
             
             Console.WriteLine() ;
+            if (vehicle == 1)
+            {
+                _bike=bikeClient(sound,wifi,camera,y, x, z, _bike, _driver, _two, _five, _twenty, _sixtyFive, _small, _medium, _large, _extraLargeStrategy, _tow, _notTow);
+                Console.WriteLine(_bike.Description());
+                Console.WriteLine($"Total Cost:\t{_bike.Cost(vehicle).ToString("C")}");
+            }
+            else if (vehicle == 2)
+            {
+                _light=lightClient(sound, wifi, camera, y, x, z,_light, _driver, _two, _five, _twenty, _sixtyFive, _small, _medium, _large, _extraLargeStrategy, _tow, _notTow);
+                Console.WriteLine(_light.Description());
+                Console.WriteLine($"Total Cost:\t{_light.Cost(vehicle).ToString("C")}");
+            }
+            else if (vehicle == 3)
+            {
+                _heavy=heavyClient(sound, wifi, camera, y, x, z,_heavy, _driver, _two, _five, _twenty, _sixtyFive, _small, _medium, _large, _extraLargeStrategy, _tow, _notTow);
+                Console.WriteLine(_heavy.Description());
+                Console.WriteLine($"Total Cost:\t{_bike.Cost(vehicle).ToString("C")}");
+                
+            }
             
+            Console.ReadKey();
+        }
+        static Vehicle bikeClient(char sound, char wifi, char camera,int y,int x,int z,Vehicle _bike, GoodDriverStrategy _driver, TwoPeopleStrategy _two, FivePeopleStrategy _five, TwentyPeopleStrategy _twenty, SixtyFivePeopleStrategy _sixtyFive, SmallEngineStrategy _small, MediumEngineStrategy _medium, LargeEngineStrategy _large, ExtraLargeStrategy _extraLargeStrategy, TowStrategy _tow, NotTowStrategy _notTow)
+        {
+            _bike.Name = "motobike";
+            concreteWifi _wifi = new concreteWifi(_bike);
             if (y == 1)
             {
-                if(x== 1 && z == 1)
+                if (x == 1 && z == 1)
                 {
-                    _con= new Connector(_driver, _small, _tow);
+                    _bike = new motorbike(_bike.Name,_driver, _small, _tow);
                 }
-                else if(x==1 && z == 2)
+                else if (x == 1 && z == 2)
                 {
-                    _con=new Connector(_driver, _small, _notTow);
+                    _bike = new motorbike(_bike.Name,_driver, _small, _notTow);
                 }
                 else if (x == 2 && z == 1)
                 {
-                    _con=new Connector(_driver,_medium, _tow);
+                    _bike = new motorbike(_bike.Name,_driver, _medium, _tow);
                 }
-                else if(x == 2 && z == 2)
+                else if (x == 2 && z == 2)
                 {
-                    _con=new Connector(_driver,_medium,_notTow);
+                    _bike = new motorbike(_bike.Name, _driver, _medium, _notTow);
                 }
-                else if(x==3&&z == 1)
+                else if (x == 3 && z == 1)
                 {
-                    _con = new Connector(_driver, _large, _tow);
+                    _bike = new motorbike(_bike.Name, _driver, _large, _tow);
                 }
-                else if(x==3&& z == 2)
+                else if (x == 3 && z == 2)
                 {
-                    _con=new Connector(_driver,_large, _notTow);
+                    _bike = new motorbike(_bike.Name, _driver, _large, _notTow);
                 }
-                else if(x==4&&z==1)
+                else if (x == 4 && z == 1)
                 {
-                    _con=new Connector(_driver,_extraLargeStrategy, _tow);
+                    _bike = new motorbike(_bike.Name, _driver, _extraLargeStrategy, _tow);
                 }
-                else if(x==4&&z== 2)
+                else if (x == 4 && z == 2)
                 {
-                    _con = new Connector(_driver, _extraLargeStrategy, _notTow);
+                    _bike = new motorbike(_bike.Name, _driver, _extraLargeStrategy, _notTow);
                 }
             }
             else if (y == 2)
             {
                 if (x == 1 && z == 1)
                 {
-                    _con = new Connector(_two, _small, _tow);
+                    _bike = new motorbike(_bike.Name,_two, _small, _tow);
                 }
                 else if (x == 1 && z == 2)
                 {
-                    _con = new Connector(_two, _small, _notTow);
+                    _bike = new motorbike(_bike.Name, _two, _small, _notTow);
                 }
                 else if (x == 2 && z == 1)
                 {
-                    _con = new Connector(_two, _medium, _tow);
+                    _bike = new motorbike(_bike.Name, _two, _medium, _tow);
                 }
                 else if (x == 2 && z == 2)
                 {
-                    _con = new Connector(_two, _medium, _notTow);
+                    _bike = new motorbike(_bike.Name, _two, _medium, _notTow);
                 }
                 else if (x == 3 && z == 1)
                 {
-                    _con = new Connector(_two, _large, _tow);
+                    _bike = new motorbike(_bike.Name, _two, _large, _tow);
                 }
                 else if (x == 3 && z == 2)
                 {
-                    _con = new Connector(_two, _large, _notTow);
+                    _bike = new motorbike(_bike.Name, _two, _large, _notTow);
                 }
                 else if (x == 4 && z == 1)
                 {
-                    _con = new Connector(_two, _extraLargeStrategy, _tow);
+                    _bike = new motorbike(_bike.Name, _two, _extraLargeStrategy, _tow);
                 }
                 else if (x == 4 && z == 2)
                 {
-                    _con = new Connector(_two, _extraLargeStrategy, _notTow);
+                    _bike = new motorbike(_bike.Name, _two, _extraLargeStrategy, _notTow);
                 }
             }
             else if (y == 5)
             {
                 if (x == 1 && z == 1)
                 {
-                    _con = new Connector(_five, _small, _tow);
+                    _bike = new motorbike(_bike.Name, _five, _small, _tow);
                 }
                 else if (x == 1 && z == 2)
                 {
-                    _con = new Connector(_five, _small, _notTow);
+                    _bike = new motorbike(_bike.Name, _five, _small, _notTow);
                 }
                 else if (x == 2 && z == 1)
                 {
-                    _con = new Connector(_five, _medium, _tow);
+                    _bike = new motorbike(_bike.Name, _five, _medium, _tow);
                 }
                 else if (x == 2 && z == 2)
                 {
-                    _con = new Connector(_five, _medium, _notTow);
+                    _bike = new motorbike(_bike.Name, _five, _medium, _notTow);
                 }
                 else if (x == 3 && z == 1)
                 {
-                    _con = new Connector(_five, _large, _tow);
+                    _bike = new motorbike(_bike.Name, _five, _large, _tow);
                 }
                 else if (x == 3 && z == 2)
                 {
-                    _con = new Connector(_five, _large, _notTow);
+                    _bike = new motorbike(_bike.Name, _five, _large, _notTow);
                 }
                 else if (x == 4 && z == 1)
                 {
-                    _con = new Connector(_five, _extraLargeStrategy, _tow);
+                    _bike = new motorbike(_bike.Name, _five, _extraLargeStrategy, _tow);
                 }
                 else if (x == 4 && z == 2)
                 {
-                    _con = new Connector(_five, _extraLargeStrategy, _notTow);
+                    _bike = new motorbike(_bike.Name, _five, _extraLargeStrategy, _notTow);
                 }
             }
             if (y == 20)
             {
                 if (x == 1 && z == 1)
                 {
-                    _con = new Connector(_twenty, _small, _tow);
+                    _bike = new motorbike(_bike.Name, _twenty, _small, _tow);
                 }
                 else if (x == 1 && z == 2)
                 {
-                    _con = new Connector(_twenty, _small, _notTow);
+                    _bike = new motorbike(_bike.Name, _twenty, _small, _notTow);
                 }
                 else if (x == 2 && z == 1)
                 {
-                    _con = new Connector(_twenty, _medium, _tow);
+                    _bike = new motorbike(_bike.Name, _twenty, _medium, _tow);
                 }
                 else if (x == 2 && z == 2)
                 {
-                    _con = new Connector(_twenty, _medium, _notTow);
+                    _bike = new motorbike(_bike.Name, _twenty, _medium, _notTow);
                 }
                 else if (x == 3 && z == 1)
                 {
-                    _con = new Connector(_twenty, _large, _tow);
+                    _bike = new motorbike(_bike.Name, _twenty, _large, _tow);
                 }
                 else if (x == 3 && z == 2)
                 {
-                    _con = new Connector(_twenty, _large, _notTow);
+                    _bike = new motorbike(_bike.Name, _twenty, _large, _notTow);
                 }
                 else if (x == 4 && z == 1)
                 {
-                    _con = new Connector(_twenty, _extraLargeStrategy, _tow);
+                    _bike = new motorbike(_bike.Name, _twenty, _extraLargeStrategy, _tow);
                 }
                 else if (x == 4 && z == 2)
                 {
-                    _con = new Connector(_twenty, _extraLargeStrategy, _notTow);
+                    _bike = new motorbike(_bike.Name, _twenty, _extraLargeStrategy, _notTow);
                 }
             }
             else if (y == 65)
             {
                 if (x == 1 && z == 1)
                 {
-                    _con = new Connector(_sixtyFive, _small, _tow);
+                    _bike = new motorbike(_bike.Name, _sixtyFive, _small, _tow);
                 }
                 else if (x == 1 && z == 2)
                 {
-                    _con = new Connector(_sixtyFive, _small, _notTow);
+                    _bike = new motorbike(_bike.Name, _sixtyFive, _small, _notTow);
                 }
                 else if (x == 2 && z == 1)
                 {
-                    _con = new Connector(_sixtyFive, _medium, _tow);
+                    _bike = new motorbike(_bike.Name, _sixtyFive, _medium, _tow);
                 }
                 else if (x == 2 && z == 2)
                 {
-                    _con = new Connector(_sixtyFive, _medium, _notTow);
+                    _bike = new motorbike(_bike.Name, _sixtyFive, _medium, _notTow);
                 }
                 else if (x == 3 && z == 1)
                 {
-                    _con = new Connector(_sixtyFive, _large, _tow);
+                    _bike = new motorbike(_bike.Name, _sixtyFive, _large, _tow);
                 }
                 else if (x == 3 && z == 2)
                 {
-                    _con = new Connector(_sixtyFive, _large, _notTow);
+                    _bike = new motorbike(_bike.Name, _sixtyFive, _large, _notTow);
                 }
                 else if (x == 4 && z == 1)
                 {
-                    _con = new Connector(_sixtyFive, _extraLargeStrategy, _tow);
+                    _bike = new motorbike(_bike.Name, _sixtyFive, _extraLargeStrategy, _tow);
                 }
                 else if (x == 4 && z == 2)
                 {
-                    _con = new Connector(_sixtyFive, _extraLargeStrategy, _notTow);
+                    _bike = new motorbike(_bike.Name, _sixtyFive, _extraLargeStrategy, _notTow);
                 }
             }
-            //_con.CallStrategyMethods();
-            _con.VehicleDescripton(vehicle, sound, wifi, camera);
-           
-            Console.ReadKey();
+            if (sound == 'Y' || sound == 'y')
+            {
+                _bike = new Sound(_bike);
+            }
+            if (wifi == 'Y' || wifi == 'y')
+            {
+                Console.Write("Enter technician to update: ");
+                string techName = Console.ReadLine();
+                technician(techName, 1, _wifi);
+                _wifi.newMessage=$"{_bike.Name} has wifi installed perform diagnostics or provide daily news about specials at ABC systems ";
+                if (sound == 'y' || sound == 'Y')
+                {
+                    _wifi.newMessage = _wifi.newMessage + ", and also update the sound system.";
+                    
+                }
+                else
+                {
+                    Console.WriteLine(" ");
+                }
+                _bike = new WiFi(_bike);
+            }
+            if (camera == 'Y' || camera == 'y')
+            {
+                _bike = new Camera(_bike);
+            }
+            
+            return _bike;
+            
+        }
+        static Vehicle lightClient(char sound, char wifi, char camera, int y, int x, int z,Vehicle _light, GoodDriverStrategy _driver, TwoPeopleStrategy _two, FivePeopleStrategy _five, TwentyPeopleStrategy _twenty, SixtyFivePeopleStrategy _sixtyFive, SmallEngineStrategy _small, MediumEngineStrategy _medium, LargeEngineStrategy _large, ExtraLargeStrategy _extraLargeStrategy, TowStrategy _tow, NotTowStrategy _notTow)
+        {
+            _light.Name = "light-vehicle";
+            concreteWifi _wifi = new concreteWifi(_light);
+            if (y == 1)
+            {
+                if (x == 1 && z == 1)
+                {
+                    _light = new lightvehicle(_light.Name,_driver, _small, _tow);
+                }
+                else if (x == 1 && z == 2)
+                {
+                    _light = new lightvehicle(_light.Name,_driver, _small, _notTow);
+                }
+                else if (x == 2 && z == 1)
+                {
+                    _light = new lightvehicle(_light.Name,_driver, _medium, _tow);
+                }
+                else if (x == 2 && z == 2)
+                {
+                    _light = new lightvehicle(_light.Name, _driver, _medium, _notTow);
+                }
+                else if (x == 3 && z == 1)
+                {
+                    _light = new lightvehicle(_light.Name, _driver, _large, _tow);
+                }
+                else if (x == 3 && z == 2)
+                {
+                    _light = new lightvehicle(_light.Name, _driver, _large, _notTow);
+                }
+                else if (x == 4 && z == 1)
+                {
+                    _light = new lightvehicle(_light.Name, _driver, _extraLargeStrategy, _tow);
+                }
+                else if (x == 4 && z == 2)
+                {
+                    _light = new lightvehicle(_light.Name, _driver, _extraLargeStrategy, _notTow);
+                }
+            }
+            else if (y == 2)
+            {
+                if (x == 1 && z == 1)
+                {
+                    _light = new lightvehicle(_light.Name, _two, _small, _tow);
+                }
+                else if (x == 1 && z == 2)
+                {
+                    _light = new lightvehicle(_light.Name, _two, _small, _notTow);
+                }
+                else if (x == 2 && z == 1)
+                {
+                    _light = new lightvehicle(_light.Name, _two, _medium, _tow);
+                }
+                else if (x == 2 && z == 2)
+                {
+                    _light = new lightvehicle(_light.Name, _two, _medium, _notTow);
+                }
+                else if (x == 3 && z == 1)
+                {
+                    _light = new lightvehicle(_light.Name, _two, _large, _tow);
+                }
+                else if (x == 3 && z == 2)
+                {
+                    _light = new lightvehicle(_light.Name, _two, _large, _notTow);
+                }
+                else if (x == 4 && z == 1)
+                {
+                    _light = new lightvehicle(_light.Name, _two, _extraLargeStrategy, _tow);
+                }
+                else if (x == 4 && z == 2)
+                {
+                    _light = new lightvehicle(_light.Name, _two, _extraLargeStrategy, _notTow);
+                }
+            }
+            else if (y == 5)
+            {
+                if (x == 1 && z == 1)
+                {
+                    _light = new lightvehicle(_light.Name, _five, _small, _tow);
+                }
+                else if (x == 1 && z == 2)
+                {
+                    _light = new lightvehicle(_light.Name, _five, _small, _notTow);
+                }
+                else if (x == 2 && z == 1)
+                {
+                    _light = new lightvehicle(_light.Name, _five, _medium, _tow);
+                }
+                else if (x == 2 && z == 2)
+                {
+                    _light = new lightvehicle(_light.Name, _five, _medium, _notTow);
+                }
+                else if (x == 3 && z == 1)
+                {
+                    _light = new lightvehicle(_light.Name, _five, _large, _tow);
+                }
+                else if (x == 3 && z == 2)
+                {
+                    _light = new lightvehicle(_light.Name, _five, _large, _notTow);
+                }
+                else if (x == 4 && z == 1)
+                {
+                    _light = new lightvehicle(_light.Name, _five, _extraLargeStrategy, _tow);
+                }
+                else if (x == 4 && z == 2)
+                {
+                    _light = new lightvehicle(_light.Name, _five, _extraLargeStrategy, _notTow);
+                }
+            }
+            if (y == 20)
+            {
+                if (x == 1 && z == 1)
+                {
+                    _light = new lightvehicle(_light.Name, _twenty, _small, _tow);
+                }
+                else if (x == 1 && z == 2)
+                {
+                    _light = new lightvehicle(_light.Name, _twenty, _small, _notTow);
+                }
+                else if (x == 2 && z == 1)
+                {
+                    _light = new lightvehicle(_light.Name, _twenty, _medium, _tow);
+                }
+                else if (x == 2 && z == 2)
+                {
+                    _light = new lightvehicle(_light.Name, _twenty, _medium, _notTow);
+                }
+                else if (x == 3 && z == 1)
+                {
+                    _light = new lightvehicle(_light.Name, _twenty, _large, _tow);
+                }
+                else if (x == 3 && z == 2)
+                {
+                    _light = new lightvehicle(_light.Name, _twenty, _large, _notTow);
+                }
+                else if (x == 4 && z == 1)
+                {
+                    _light = new lightvehicle(_light.Name, _twenty, _extraLargeStrategy, _tow);
+                }
+                else if (x == 4 && z == 2)
+                {
+                    _light = new lightvehicle(_light.Name, _twenty, _extraLargeStrategy, _notTow);
+                }
+            }
+            else if (y == 65)
+            {
+                if (x == 1 && z == 1)
+                {
+                    _light = new lightvehicle(_light.Name, _sixtyFive, _small, _tow);
+                }
+                else if (x == 1 && z == 2)
+                {
+                    _light = new lightvehicle(_light.Name, _sixtyFive, _small, _notTow);
+                }
+                else if (x == 2 && z == 1)
+                {
+                    _light = new lightvehicle(_light.Name, _sixtyFive, _medium, _tow);
+                }
+                else if (x == 2 && z == 2)
+                {
+                    _light = new lightvehicle(  _light.Name, _sixtyFive, _medium, _notTow);
+                }
+                else if (x == 3 && z == 1)
+                {
+                    _light = new lightvehicle(_light.Name, _sixtyFive, _large, _tow);
+                }
+                else if (x == 3 && z == 2)
+                {
+                    _light = new lightvehicle(_light.Name, _sixtyFive, _large, _notTow);
+                }
+                else if (x == 4 && z == 1)
+                {
+                    _light = new lightvehicle(_light.Name, _sixtyFive, _extraLargeStrategy, _tow);
+                }
+                else if (x == 4 && z == 2)
+                {
+                    _light = new lightvehicle(_light.Name, _sixtyFive, _extraLargeStrategy, _notTow);
+                }
+            }
+            if (sound == 'Y' || sound == 'y')
+            {
+                _light = new Sound(_light);
+            }
+            if (wifi == 'Y' || wifi == 'y')
+            {
+                Console.Write("Enter technician to update: ");
+                string techName = Console.ReadLine();
+                technician(techName, 2, _wifi);
+                _wifi.newMessage=$"{_light.Name} has wifi installed perform diagnostics or provide daily news about specials at ABC systems ";
+                if (sound == 'y' || sound == 'Y')
+                {
+                    _wifi.newMessage = _wifi.newMessage + ", and also update the sound system.";
+                }
+                else
+                {
+                    Console.WriteLine(" ");
+                }
+                _light = new WiFi(_light);
+            }
+            if (camera == 'Y' || camera == 'y')
+            {
+                _light = new Camera(_light);
+            }
+            return _light;
+        }
+        static Vehicle heavyClient(char sound, char wifi, char camera, int y, int x, int z, Vehicle _heavy, GoodDriverStrategy _driver, TwoPeopleStrategy _two, FivePeopleStrategy _five, TwentyPeopleStrategy _twenty, SixtyFivePeopleStrategy _sixtyFive, SmallEngineStrategy _small, MediumEngineStrategy _medium, LargeEngineStrategy _large, ExtraLargeStrategy _extraLargeStrategy, TowStrategy _tow, NotTowStrategy _notTow)
+        {
+            _heavy.Name = "heavy-vehicle";
+            concreteWifi _wifi = new concreteWifi(_heavy);
+            if (y == 1)
+            {
+                if (x == 1 && z == 1)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name,_driver, _small, _tow);
+                }
+                else if (x == 1 && z == 2)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name,_driver, _small, _notTow);
+                }
+                else if (x == 2 && z == 1)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name,_driver, _medium, _tow);
+                }
+                else if (x == 2 && z == 2)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name,_driver, _medium, _notTow);
+                }
+                else if (x == 3 && z == 1)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name,_driver, _large, _tow);
+                }
+                else if (x == 3 && z == 2)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _driver, _large, _notTow);
+                }
+                else if (x == 4 && z == 1)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _driver, _extraLargeStrategy, _tow);
+                }
+                else if (x == 4 && z == 2)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _driver, _extraLargeStrategy, _notTow);
+                }
+            }
+            else if (y == 2)
+            {
+                if (x == 1 && z == 1)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name,_two, _small, _tow);
+                }
+                else if (x == 1 && z == 2)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _two, _small, _notTow);
+                }
+                else if (x == 2 && z == 1)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _two, _medium, _tow);
+                }
+                else if (x == 2 && z == 2)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _two, _medium, _notTow);
+                }
+                else if (x == 3 && z == 1)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _two, _large, _tow);
+                }
+                else if (x == 3 && z == 2)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _two, _large, _notTow);
+                }
+                else if (x == 4 && z == 1)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _two, _extraLargeStrategy, _tow);
+                }
+                else if (x == 4 && z == 2)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _two, _extraLargeStrategy, _notTow);
+                }
+            }
+            else if (y == 5)
+            {
+                if (x == 1 && z == 1)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _five, _small, _tow);
+                }
+                else if (x == 1 && z == 2)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _five, _small, _notTow);
+                }
+                else if (x == 2 && z == 1)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _five, _medium, _tow);
+                }
+                else if (x == 2 && z == 2)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _five, _medium, _notTow);
+                }
+                else if (x == 3 && z == 1)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _five, _large, _tow);
+                }
+                else if (x == 3 && z == 2)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _five, _large, _notTow);
+                }
+                else if (x == 4 && z == 1)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _five, _extraLargeStrategy, _tow);
+                }
+                else if (x == 4 && z == 2)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _five, _extraLargeStrategy, _notTow);
+                }
+            }
+            if (y == 20)
+            {
+                if (x == 1 && z == 1)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _twenty, _small, _tow);
+                }
+                else if (x == 1 && z == 2)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _twenty, _small, _notTow);
+                }
+                else if (x == 2 && z == 1)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _twenty, _medium, _tow);
+                }
+                else if (x == 2 && z == 2)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _twenty, _medium, _notTow);
+                }
+                else if (x == 3 && z == 1)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _twenty, _large, _tow);
+                }
+                else if (x == 3 && z == 2)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _twenty, _large, _notTow);
+                }
+                else if (x == 4 && z == 1)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _twenty, _extraLargeStrategy, _tow);
+                }
+                else if (x == 4 && z == 2)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name,_twenty, _extraLargeStrategy, _notTow);
+                }
+            }
+            else if (y == 65)
+            {
+                if (x == 1 && z == 1)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _sixtyFive, _small, _tow);
+                }
+                else if (x == 1 && z == 2)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _sixtyFive, _small, _notTow);
+                }
+                else if (x == 2 && z == 1)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _sixtyFive, _medium, _tow);
+                }
+                else if (x == 2 && z == 2)
+                {
+                    _heavy = new heavyvehicle(  _heavy.Name, _sixtyFive, _medium, _notTow);
+                }
+                else if (x == 3 && z == 1)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _sixtyFive, _large, _tow);
+                }
+                else if (x == 3 && z == 2)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _sixtyFive, _large, _notTow);
+                }
+                else if (x == 4 && z == 1)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _sixtyFive, _extraLargeStrategy, _tow);
+                }
+                else if (x == 4 && z == 2)
+                {
+                    _heavy = new heavyvehicle(_heavy.Name, _sixtyFive, _extraLargeStrategy, _notTow);
+                }
+            }
+            if (sound == 'Y' || sound == 'y')
+            {
+                _heavy = new Sound(_heavy);
+            }
+            if (wifi == 'Y' || wifi == 'y')
+            {
+                Console.Write("Enter technician to update: ");
+                string techName = Console.ReadLine();
+                technician(techName, 3, _wifi);
+                _wifi.newMessage = $"{_heavy.Name} wifi has been istalled perform diagnostics or provide daily news about specials at ABC systems ";
+                if (sound == 'y' || sound == 'Y')
+                {
+                    _wifi.newMessage = _wifi.newMessage + ", and also update the sound system.";
+                }
+                else
+                {
+                    Console.WriteLine(" ");
+                }
+                
+                _heavy = new WiFi(_heavy);
+            }
+            if (camera == 'Y' || camera == 'y')
+            {
+                _heavy = new Camera(_heavy);
+            }
+            return _heavy;
+        }
+        static void technician( string name,int type, concreteWifi _wifi)
+        {
+            if (type == 1)
+            {
+                motobikeTech _motoTech = new motobikeTech(name);
+                _wifi.AddTechnician(_motoTech, type);
+                Console.WriteLine("Technician added successfully.");
+            }
+            if (type == 2 || type == 3)
+            {
+                HeavyLightTech _heavylightTech = new HeavyLightTech(name);
+                _wifi.AddTechnician(_heavylightTech, type);
+                Console.WriteLine("Technician added successfully.");
+            }
         }
     }
     //Strategy pattern:
     //Carrier capabilities
-    public abstract class CarrierCapability
+    public interface ICarrierCapability
     {
-        public abstract string DefineCapability();
+        string DefineCapability();
     }
-    public class GoodDriverStrategy : CarrierCapability
+    public class GoodDriverStrategy : ICarrierCapability
     {
-        public override string DefineCapability()
+        public string DefineCapability()
         {
             return "Good and Driver.";
         }
     }
-    public class TwoPeopleStrategy : CarrierCapability
+    public class TwoPeopleStrategy : ICarrierCapability
     {
-        public override string DefineCapability()
+        public string DefineCapability()
         {
             return "2 people max and bag.";
         }
     }
-    public class FivePeopleStrategy : CarrierCapability
+    public class FivePeopleStrategy : ICarrierCapability
     {
-        public override string DefineCapability()
+        public string DefineCapability()
         {
             return "5 people max and few luggage.";
         }
     }
-    public class TwentyPeopleStrategy : CarrierCapability
+    public class TwentyPeopleStrategy : ICarrierCapability
     {
-        public override string DefineCapability()
+        public string DefineCapability()
         {
             return "20 people max.";
         }
     }
-    public class SixtyFivePeopleStrategy : CarrierCapability
+    public class SixtyFivePeopleStrategy : ICarrierCapability
     {
-        public override string DefineCapability()
+        public string DefineCapability()
         {
             return "65 people max.";
         }
     }
     //Engine
-    public abstract class Engine
+    public interface IEngine
     {
-        public abstract string DefineEngine();
+        string DefineEngine();
     }
-    public class SmallEngineStrategy : Engine
+    public class SmallEngineStrategy : IEngine
     {
-        public override string DefineEngine()
+        public string DefineEngine()
         {
             return "Small engine.";
         }
     }
-    public class MediumEngineStrategy : Engine
+    public class MediumEngineStrategy : IEngine
     {
-        public override string DefineEngine()
+        public  string DefineEngine()
         {
             return "Medium engine.";
         }
     }
-    public class LargeEngineStrategy : Engine
+    public class LargeEngineStrategy : IEngine
     {
-        public override string DefineEngine()
+        public string DefineEngine()
         {
             return "Large engine.";
         }
     }
-    public class ExtraLargeStrategy : Engine
+    public class ExtraLargeStrategy : IEngine
     {
-        public override string DefineEngine()
+        public string DefineEngine()
         {
             return "Extra large engine.";
         }
     }
     //Towing capabilities
-    public abstract class TowingCapability
+    public interface ITowingCapability
     {
-        public abstract string DefineTowingCapability();
+        string DefineTowingCapability();
     }
-    public class TowStrategy : TowingCapability
+    public class TowStrategy : ITowingCapability
     {
-        public override string DefineTowingCapability()
+        public string DefineTowingCapability()
         {
             return "can tow.";
         }
     }
-    public class NotTowStrategy : TowingCapability
+    public class NotTowStrategy : ITowingCapability
     {
-        public override string DefineTowingCapability()
+        public string DefineTowingCapability()
         {
             return "cannot tow.";
         }
     }
     public class GetCarrier 
     {
-        public CarrierCapability _carrier { get; set; }
-        public GetCarrier(CarrierCapability carrier)
+        public ICarrierCapability _carrier { get; set; }
+        public GetCarrier(ICarrierCapability carrier)
         {
             this._carrier = carrier;
         }
@@ -379,8 +856,8 @@ namespace ABC_System
     }
     public class GetEngineStrategy
     {
-        public Engine _engine { get; set; }
-        public GetEngineStrategy(Engine engine)
+        public IEngine _engine { get; set; }
+        public GetEngineStrategy(IEngine engine)
         {
             this._engine = engine;
         }
@@ -391,8 +868,8 @@ namespace ABC_System
     }
     public class GetTowStrategy
     {
-        public TowingCapability _towing { get; set; }
-        public GetTowStrategy(TowingCapability towing)
+        public ITowingCapability _towing { get; set; }
+        public GetTowStrategy(ITowingCapability towing)
         {
             _towing = towing;
         }
@@ -402,165 +879,33 @@ namespace ABC_System
         }
     }
 
-    //Client that accesses every strategy class
-    public class Connector
-    {
-        //Strategy
-        public CarrierCapability _carrier { get; set; }
-        public Engine _engine { get; set; }
-        public TowingCapability _tow { get; set; }
-        //Decorator
-        Vehicle _motobike = new motorbike();
-        Vehicle _light = new lightvehicle();
-        Vehicle _heavy = new heavyvehicle();
-        //Observer
-        concreteWifi _wifi=new concreteWifi();
-        
-        public Connector(CarrierCapability carrier, Engine engine, TowingCapability tow)
-        {
-            this._carrier = carrier;
-            this._engine = engine;
-            this._tow = tow;
-        }
-        public void technician( string name,int type)
-        {
-            if (type == 1)
-            {
-                motobikeTech _motoTech = new motobikeTech(name);
-                _wifi.AddTechnician(_motoTech,type);
-                Console.WriteLine("Technician added successfully.");
-            }
-            if(type == 2||type==3)
-            {
-                HeavyLightTech _heavylightTech = new HeavyLightTech(name);
-                _wifi.AddTechnician(_heavylightTech,type);
-                Console.WriteLine("Technician added successfully.");
-            }
-        }
-        
-        public void VehicleDescripton(int name,char sound,int wifi,int camera)
-        {
-            string GetCarrier = _carrier.DefineCapability();
-            string GetEngine = _engine.DefineEngine();
-            string GetTow = _tow.DefineTowingCapability();
-            string techName = "";
-            if (name == 1)
-            {
-                
-               
-                if (sound == 'Y' || sound == 'y')
-                {
-                    _motobike = new Sound(_motobike);
-                }
-                if (wifi == 'Y' || wifi == 'y')
-                {
-                    Console.Write("Enter technician to update: ");
-                    techName = Console.ReadLine();
-                    technician(techName, name);
-                    _wifi.GetUpdate(name, "perform diagnostics or provide daily news about specials at ABC systems ");
-                    if (sound == 'y' || sound == 'Y')
-                    {
-                        Console.WriteLine(", and also update the sound system.");
-                    }
-                    else
-                    {
-                        Console.WriteLine(" ");
-                    }
-                    _motobike =new WiFi(_motobike);
-                }
-                if(camera == 'Y' || camera == 'y')
-                {
-                    _motobike=new Camera(_motobike);
-                }
-            }
-            
-            else if (name == 2)
-            {
-                
-                if (sound == 'Y' || sound == 'y')
-                {
-                    _light = new Sound(_light);
-                }
-                if (wifi == 'Y' || wifi == 'y')
-                {
-                    Console.Write("Enter technician to update: ");
-                    techName = Console.ReadLine();
-                    technician(techName, name);
-                    _wifi.GetUpdate(name, "perform diagnostics or provide daily news about specials at ABC systems ");
-                    if (sound == 'y' || sound == 'Y')
-                    {
-                        Console.WriteLine(", and also update the sound system.");
-                    }
-                    else
-                    {
-                        Console.WriteLine(" ");
-                    }
-                    _light = new WiFi(_light);
-                }
-                if (camera == 'Y' || camera == 'y')
-                {
-                    _light = new Camera(_light);
-                }
-            }
-            else if (name == 3)
-            {
-                if (sound == 'Y' || sound == 'y')
-                {
-                    _heavy = new Sound(_heavy);
-                }
-                if (wifi == 'Y' || wifi == 'y')
-                {
-                    Console.Write("Enter technician to update: ");
-                    techName = Console.ReadLine();
-                    technician(techName, name);
-                    _wifi.GetUpdate(name, "perform diagnostics or provide daily news about specials at ABC systems ");
-                    if (sound == 'y' || sound == 'Y')
-                    {
-                        Console.WriteLine(", and also update the sound system.");
-                    }
-                    else
-                    {
-                        Console.WriteLine(" ");
-                    }
-                    _heavy = new WiFi(_heavy);
-                }
-                if (camera == 'Y' || camera == 'y')
-                {
-                    _heavy = new Camera(_heavy);
-                }
-            }
-            Console.WriteLine($"Your vehicle has the following specs:\n1. {GetCarrier}\n2. {GetEngine}\n3. {GetTow}");
-            if ((sound == 'y' || sound == 'Y') || (wifi == 'Y' || wifi == 'y') || (camera == 'y' || camera == 'Y')) 
-            {
-                Console.WriteLine();
-                Console.WriteLine("Extra added specs:\n==================");
-                if (_motobike != null && name==1)
-                {
-                    Console.WriteLine($"{_motobike.Description()} :\t{_motobike.Cost(name).ToString("C")}");
-                }
-                if (_light != null && name==2)
-                {
-                    Console.WriteLine($"{_light.Description()} :\t{_light.Cost(name).ToString("C")}");
-                }
-                if (_heavy != null && name==3)
-                {
-                    Console.WriteLine($"{_heavy.Description()} :\t{_heavy.Cost(name).ToString("C")}");
-                }
-            }
-            
-        }
-    }
     //Decorator pattern
     public abstract class Vehicle
     {
+        public string Name { get; set; }
         public abstract string Description();
         public abstract double Cost(int vehicleType);
     }
     public class motorbike : Vehicle
     {
+        public ICarrierCapability _carrier { get; set; }
+        public IEngine _engine { get; set; }
+        public ITowingCapability _tow { get; set; }
+        public motorbike(string name,ICarrierCapability carrier, IEngine engine, ITowingCapability tow)
+        {
+            this._carrier = carrier;
+            this._engine = engine;
+            this._tow = tow;
+            this.Name = name;
+        }
+        
         public override string Description()
         {
-            return "Motobike";
+            string GetCarrier = _carrier.DefineCapability();
+            string GetEngine = _engine.DefineEngine();
+            string GetTow = _tow.DefineTowingCapability();
+            return $"The motobike has the following specs:\n1. {GetCarrier}\n2. {GetEngine}\n3. {GetTow}";
+            
         }
         public override double Cost(int vehicleType)
         {
@@ -569,9 +914,22 @@ namespace ABC_System
     }
     public class lightvehicle : Vehicle
     {
+        public ICarrierCapability _carrier { get; set; }
+        public IEngine _engine { get; set; }
+        public ITowingCapability _tow { get; set; }
+        public lightvehicle(string Name,ICarrierCapability carrier, IEngine engine, ITowingCapability tow)
+        {
+            this._carrier = carrier;
+            this._engine = engine;
+            this._tow = tow;
+            this.Name=Name;
+        }
         public override string Description()
         {
-            return "Light vehicle";
+            string GetCarrier = _carrier.DefineCapability();
+            string GetEngine = _engine.DefineEngine();
+            string GetTow = _tow.DefineTowingCapability();
+            return $"The light vehicle has the following specs:\n1. {GetCarrier}\n2. {GetEngine}\n3. {GetTow}";
         }
         public override double Cost(int vehicleType)
         {
@@ -579,10 +937,24 @@ namespace ABC_System
         }
     }
     public class heavyvehicle : Vehicle 
-    { 
+    {
+        public ICarrierCapability _carrier { get; set; }
+        public IEngine _engine { get; set; }
+        public ITowingCapability _tow { get; set; }
+        public heavyvehicle(string name, ICarrierCapability carrier, IEngine engine, ITowingCapability tow)
+        {
+            this._carrier = carrier;
+            this._engine = engine;
+            this._tow = tow;
+            this.Name=name;
+        }
         public override string Description()
         {
-            return "Heavy vehicle";
+            string GetCarrier = _carrier.DefineCapability();
+            string GetEngine = _engine.DefineEngine();
+            string GetTow = _tow.DefineTowingCapability();
+            return $"The heavy vehicle has the following specs:\n1. {GetCarrier}\n2. {GetEngine}\n3. {GetTow}";
+            
         }
         public override double Cost(int vehicleType)
         {
@@ -592,6 +964,7 @@ namespace ABC_System
     public abstract class VehicleDecorator : Vehicle
     {
         Vehicle _vehicle;
+        
         public VehicleDecorator(Vehicle vehicle)
         {
             _vehicle = vehicle;
@@ -607,15 +980,17 @@ namespace ABC_System
     }
     public class Sound : VehicleDecorator 
     {
-        Vehicle _vehicle = null;
+        Vehicle _vehicle;
+        
         public Sound(Vehicle vehicle):base(vehicle)
         {
             _vehicle = vehicle;
         }
         public override string Description()
         {
-            
-            return _vehicle.Description()+", Added sound system";
+
+             return _vehicle.Description()+ "\nAdded sound system";
+  
         }
         public override double Cost(int vehicleType)
         {
@@ -637,14 +1012,17 @@ namespace ABC_System
     }
     public class WiFi : VehicleDecorator
     {
-        Vehicle _vehicle= null;
-        public WiFi(Vehicle vehicle):base(vehicle)
+        Vehicle _vehicle;
+        private List<IObserver> _motolist = new List<IObserver>();
+        private List<IObserver> _heavyLightList = new List<IObserver>();
+        public WiFi(Vehicle vehicle):base(vehicle) 
         {
-            _vehicle= vehicle;
+            _vehicle = vehicle;
         }
         public override string Description()
         {
-            return _vehicle.Description()+", Added wifi";
+            return _vehicle.Description()+ "\nAdded wifi";
+            //Console.WriteLine("Added wifi");
         }
         public override double Cost(int vehicleType)
         {
@@ -663,17 +1041,50 @@ namespace ABC_System
             }
             return totalCost;
         }
+        public void AddTechnician(IObserver technician, int name)
+        {
+            if (name == 1)
+            {
+                _motolist.Add(technician);
+            }
+            else if (name == 2 || name == 3)
+            {
+                _heavyLightList.Add(technician);
+            }
+        }
+        public void RemoveTechnician(IObserver technician)
+        {
+            _motolist.Remove(technician);
+        }
+        public void Notify(string message,string name)
+        {
+            if (name == "motobike")
+            {
+                foreach (IObserver _tech in _motolist)
+                {
+                    _tech.Update(message);
+                }
+            }
+            else if (name == "light-vehicle" || name == "heavy-vehicle")
+            {
+                foreach (IObserver _tech in _heavyLightList)
+                {
+                    _tech.Update(message);
+                }
+            }
+        }
     }
     public class Camera : VehicleDecorator
     {
-        Vehicle _vehicle = null;
+        Vehicle _vehicle;
         public Camera(Vehicle vehicle):base(vehicle)
         {
             _vehicle = vehicle;
         }
         public override string Description()
         {
-            return _vehicle.Description()+ ", Added camera ";
+            return _vehicle.Description()+ "\nAdded camera";
+            
         }
         public override double Cost(int vehicleType)
         {
@@ -698,56 +1109,26 @@ namespace ABC_System
     {
         void Update(string message);
     }
-    public abstract class WifiConnection
+    public class concreteWifi : WiFi
     {
-        private List<IObserver> _motolist= new List<IObserver>();
-        private List<IObserver> _heavyLightList= new List<IObserver>();
-        public void AddTechnician(IObserver technician,int name)
+        private Vehicle _vehicle;
+        public concreteWifi(Vehicle vehicle):base(vehicle)
         {
-            if (name == 1)
-            {
-                _motolist.Add(technician);
-            }
-            else if (name == 2 || name == 3)
-            {
-                _heavyLightList.Add(technician);
-            }
+            _vehicle = vehicle;
         }
-        public void RemoveTechnician(IObserver technician)
-        {
-            _motolist.Remove(technician);
-        }
-        public void Notify(string message,int name)
-        {
-            if (name == 1)
-            {
-                foreach (IObserver _tech in _motolist)
-                {
-                    _tech.Update(message);
-                }
-            }
-            else if(name == 2 || name == 3)
-            {
-                foreach (IObserver _tech in _heavyLightList)
-                {
-                    _tech.Update(message);
-                }
-            }
-        }
-        public abstract void GetUpdate(int name, string newMessage);
-    }
-   
-    public class concreteWifi : WifiConnection
-    {
-        private int Name;
+        
         private string NewMessage;
-        public int name { get { return Name; } }
-        public string newMessage { get { return NewMessage; } }
-        public override void GetUpdate(int name, string newMessage)
+        public string newMessage
         {
-            Name = name;
-            NewMessage = newMessage;
-            Notify($"{Name}\t{NewMessage}",Name);
+            get { return NewMessage; }
+            set
+            {
+                if (NewMessage != value)
+                {
+                    NewMessage= value;
+                    Notify(NewMessage,_vehicle.Name);
+                }
+            }
         }
     }
     public class motobikeTech:IObserver
