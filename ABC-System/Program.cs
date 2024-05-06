@@ -21,7 +21,6 @@ namespace ABC_System
             FivePeopleStrategy _five= new FivePeopleStrategy();
             TwentyPeopleStrategy _twenty= new TwentyPeopleStrategy();
             SixtyFivePeopleStrategy _sixtyFive= new SixtyFivePeopleStrategy();
-            List<GetCarrier>_carrierList= new List<GetCarrier>();
             SmallEngineStrategy _small= new SmallEngineStrategy();
             MediumEngineStrategy _medium= new MediumEngineStrategy();
             LargeEngineStrategy _large= new LargeEngineStrategy();
@@ -34,39 +33,8 @@ namespace ABC_System
             char sound = 'c';
             char wifi = 'c';
             char camera='c';
-            _carrierList.Add(new GetCarrier(_driver));
-            _carrierList.Add(new GetCarrier(_two));
-            _carrierList.Add(new GetCarrier(_five));
-            _carrierList.Add(new GetCarrier(_twenty));
-            _carrierList.Add(new GetCarrier(_sixtyFive));
-            Console.WriteLine("Choose one choice from each option\nA. Carrier capabilities:\n=========================");
             
-            foreach (GetCarrier carrier in _carrierList)
-            {
-                carrier.DisplayOptions();
-            }
-            Console.WriteLine();
-            List<GetEngineStrategy>_engineList= new List<GetEngineStrategy>();
-            _engineList.Add(new GetEngineStrategy(_small));
-            _engineList.Add(new GetEngineStrategy(_medium));
-            _engineList.Add(new GetEngineStrategy(_large));
-            _engineList.Add(new GetEngineStrategy(_extraLargeStrategy));
-            Console.WriteLine("B. Engine\n==========");
-            
-            foreach (GetEngineStrategy engine in _engineList)
-            {
-                engine.DisplayOptions();
-            }
-            Console.WriteLine();
-            List<GetTowStrategy>_towList= new List<GetTowStrategy>();
-            _towList.Add(new GetTowStrategy(_tow));
-            _towList.Add(new GetTowStrategy(_notTow));
-            Console.WriteLine("C.Towing capabilities\n======================");
-            
-            foreach (GetTowStrategy tow in _towList)
-            {
-                tow.DisplayOptions();
-            }
+            Console.WriteLine("Choose one choice from each option\nA. Carrier capabilities:\n=========================\n1) Good and Driver.\n2) 2 people max and bag.\n3) 5 people max and few luggage.\n4) 20 people max.\n5) 65 people max.\n\nB. Engine\n==========\n1) Small engine.\n2) Medium engine.\n3) Large engine.\n4) Extra large engine.\n\nC.Towing capabilities\r\n======================\n1) can tow.\n2) cannot tow.");
             Console.WriteLine();
             Console.Write("Which vehicle do you want (1/2/3): ");
             int vehicle=int.Parse(Console.ReadLine());
@@ -76,7 +44,6 @@ namespace ABC_System
             int x=int.Parse(Console.ReadLine());
             Console.Write("Enter tow capability (1,2): ");
             int z=int.Parse(Console.ReadLine());
-
             Console.Write("Do you want to add extra specs (y/n): ");
             char extraSpec=char.Parse(Console.ReadLine());
 
@@ -88,10 +55,8 @@ namespace ABC_System
                 wifi=char.Parse(Console.ReadLine());
                 Console.Write("Do you want to add camera (y/n): ");
                 camera=char.Parse(Console.ReadLine());
-
             }
-            
-            Console.WriteLine() ;
+            Console.WriteLine() ; 
             if (vehicle == 1)
             {
                 _bike=bikeClient(sound,wifi,camera,y, x, z, _bike, _driver, _two, _five, _twenty, _sixtyFive, _small, _medium, _large, _extraLargeStrategy, _tow, _notTow);
@@ -117,7 +82,7 @@ namespace ABC_System
         static Vehicle bikeClient(char sound, char wifi, char camera,int y,int x,int z,Vehicle _bike, GoodDriverStrategy _driver, TwoPeopleStrategy _two, FivePeopleStrategy _five, TwentyPeopleStrategy _twenty, SixtyFivePeopleStrategy _sixtyFive, SmallEngineStrategy _small, MediumEngineStrategy _medium, LargeEngineStrategy _large, ExtraLargeStrategy _extraLargeStrategy, TowStrategy _tow, NotTowStrategy _notTow)
         {
             _bike.Name = "motobike";
-            concreteWifi _wifi = new concreteWifi(_bike);
+            WiFi _wifi = new WiFi(_bike);
             if (y == 1)
             {
                 if (x == 1 && z == 1)
@@ -302,15 +267,17 @@ namespace ABC_System
                 Console.Write("Enter technician to update: ");
                 string techName = Console.ReadLine();
                 technician(techName, 1, _wifi);
-                _wifi.newMessage=$"{_bike.Name} has wifi installed perform diagnostics or provide daily news about specials at ABC systems ";
+                _wifi.GetState($"{_bike.Name} has wifi installed perform diagnostics or provide daily news about specials at ABC systems ");
                 if (sound == 'y' || sound == 'Y')
                 {
-                    _wifi.newMessage = _wifi.newMessage + ", and also update the sound system.";
-                    
+                    _wifi.GetState(", and also update the sound system.");
+                    Console.WriteLine();
+                    Console.WriteLine();
                 }
                 else
                 {
-                    Console.WriteLine(" ");
+                    Console.WriteLine();
+                    Console.WriteLine();
                 }
                 _bike = new WiFi(_bike);
             }
@@ -324,13 +291,13 @@ namespace ABC_System
         }
         static Vehicle lightClient(char sound, char wifi, char camera, int y, int x, int z,Vehicle _light, GoodDriverStrategy _driver, TwoPeopleStrategy _two, FivePeopleStrategy _five, TwentyPeopleStrategy _twenty, SixtyFivePeopleStrategy _sixtyFive, SmallEngineStrategy _small, MediumEngineStrategy _medium, LargeEngineStrategy _large, ExtraLargeStrategy _extraLargeStrategy, TowStrategy _tow, NotTowStrategy _notTow)
         {
-            _light.Name = "light-vehicle";
-            concreteWifi _wifi = new concreteWifi(_light);
+            string name = "light-vehicle";
+            WiFi _wifi = new WiFi(_light);
             if (y == 1)
             {
                 if (x == 1 && z == 1)
                 {
-                    _light = new lightvehicle(_light.Name,_driver, _small, _tow);
+                    _light = new lightvehicle(name,_driver, _small, _tow);
                 }
                 else if (x == 1 && z == 2)
                 {
@@ -510,14 +477,17 @@ namespace ABC_System
                 Console.Write("Enter technician to update: ");
                 string techName = Console.ReadLine();
                 technician(techName, 2, _wifi);
-                _wifi.newMessage=$"{_light.Name} has wifi installed perform diagnostics or provide daily news about specials at ABC systems ";
+                _wifi.GetState($"{_light.Name} has wifi installed perform diagnostics or provide daily news about specials at ABC systems ");
                 if (sound == 'y' || sound == 'Y')
                 {
-                    _wifi.newMessage = _wifi.newMessage + ", and also update the sound system.";
+                    _wifi.GetState(", and also update the sound system.");
+                    Console.WriteLine();
+                    Console.WriteLine();
                 }
                 else
                 {
-                    Console.WriteLine(" ");
+                    Console.WriteLine();
+                    Console.WriteLine();
                 }
                 _light = new WiFi(_light);
             }
@@ -530,7 +500,7 @@ namespace ABC_System
         static Vehicle heavyClient(char sound, char wifi, char camera, int y, int x, int z, Vehicle _heavy, GoodDriverStrategy _driver, TwoPeopleStrategy _two, FivePeopleStrategy _five, TwentyPeopleStrategy _twenty, SixtyFivePeopleStrategy _sixtyFive, SmallEngineStrategy _small, MediumEngineStrategy _medium, LargeEngineStrategy _large, ExtraLargeStrategy _extraLargeStrategy, TowStrategy _tow, NotTowStrategy _notTow)
         {
             _heavy.Name = "heavy-vehicle";
-            concreteWifi _wifi = new concreteWifi(_heavy);
+            WiFi _wifi= new WiFi(_heavy);
             if (y == 1)
             {
                 if (x == 1 && z == 1)
@@ -715,14 +685,18 @@ namespace ABC_System
                 Console.Write("Enter technician to update: ");
                 string techName = Console.ReadLine();
                 technician(techName, 3, _wifi);
-                _wifi.newMessage = $"{_heavy.Name} wifi has been istalled perform diagnostics or provide daily news about specials at ABC systems ";
+                
+                _wifi.GetState($"{_heavy.Name} wifi has been istalled perform diagnostics or provide daily news about specials at ABC systems ");
                 if (sound == 'y' || sound == 'Y')
                 {
-                    _wifi.newMessage = _wifi.newMessage + ", and also update the sound system.";
+                    _wifi.GetState(", and also update the sound system.");
+                    Console.WriteLine();
+                    Console.WriteLine();
                 }
                 else
                 {
                     Console.WriteLine(" ");
+                    Console.WriteLine();
                 }
                 
                 _heavy = new WiFi(_heavy);
@@ -733,19 +707,19 @@ namespace ABC_System
             }
             return _heavy;
         }
-        static void technician( string name,int type, concreteWifi _wifi)
+        static void technician( string name,int type, WiFi _wifi)
         {
             if (type == 1)
             {
                 motobikeTech _motoTech = new motobikeTech(name);
                 _wifi.AddTechnician(_motoTech, type);
-                Console.WriteLine("Technician added successfully.");
+                Console.WriteLine();
             }
             if (type == 2 || type == 3)
             {
                 HeavyLightTech _heavylightTech = new HeavyLightTech(name);
                 _wifi.AddTechnician(_heavylightTech, type);
-                Console.WriteLine("Technician added successfully.");
+                Console.WriteLine();
             }
         }
     }
@@ -842,43 +816,7 @@ namespace ABC_System
             return "cannot tow.";
         }
     }
-    public class GetCarrier 
-    {
-        public ICarrierCapability _carrier { get; set; }
-        public GetCarrier(ICarrierCapability carrier)
-        {
-            this._carrier = carrier;
-        }
-        public void DisplayOptions()
-        { 
-            Console.WriteLine(_carrier.DefineCapability());
-        }
-    }
-    public class GetEngineStrategy
-    {
-        public IEngine _engine { get; set; }
-        public GetEngineStrategy(IEngine engine)
-        {
-            this._engine = engine;
-        }
-        public void DisplayOptions()
-        { 
-            Console.WriteLine(_engine.DefineEngine());
-        }
-    }
-    public class GetTowStrategy
-    {
-        public ITowingCapability _towing { get; set; }
-        public GetTowStrategy(ITowingCapability towing)
-        {
-            _towing = towing;
-        }
-        public void DisplayOptions()
-        {
-            Console.WriteLine(_towing.DefineTowingCapability());
-        }
-    }
-
+    
     //Decorator pattern
     public abstract class Vehicle
     {
@@ -922,7 +860,7 @@ namespace ABC_System
             this._carrier = carrier;
             this._engine = engine;
             this._tow = tow;
-            this.Name=Name;
+            this.Name= "light-vehicle";
         }
         public override string Description()
         {
@@ -1010,19 +948,31 @@ namespace ABC_System
             return totalCost;
         }
     }
-    public class WiFi : VehicleDecorator
+    public interface IObserver
+    {
+        void Update(string message);
+    }
+    public interface IWifi
+    {
+        void AddTechnician(IObserver technician, int name);
+        void RemoveTechnician(IObserver technician);
+        void Notify(string message, string name);
+    }
+    public class WiFi : VehicleDecorator, IWifi 
     {
         Vehicle _vehicle;
+        private string NewMessage;
+        public string newMessage;
         private List<IObserver> _motolist = new List<IObserver>();
         private List<IObserver> _heavyLightList = new List<IObserver>();
         public WiFi(Vehicle vehicle):base(vehicle) 
         {
             _vehicle = vehicle;
+            
         }
         public override string Description()
         {
             return _vehicle.Description()+ "\nAdded wifi";
-            //Console.WriteLine("Added wifi");
         }
         public override double Cost(int vehicleType)
         {
@@ -1073,6 +1023,11 @@ namespace ABC_System
                 }
             }
         }
+        public void GetState(string message)
+        {
+            NewMessage = message;
+            Notify(NewMessage, _vehicle.Name);
+        }
     }
     public class Camera : VehicleDecorator
     {
@@ -1083,8 +1038,7 @@ namespace ABC_System
         }
         public override string Description()
         {
-            return _vehicle.Description()+ "\nAdded camera";
-            
+            return _vehicle.Description()+ "\nAdded camera";  
         }
         public override double Cost(int vehicleType)
         {
@@ -1105,43 +1059,19 @@ namespace ABC_System
         }
     }
     //Observer pattern
-    public interface IObserver
-    {
-        void Update(string message);
-    }
-    public class concreteWifi : WiFi
-    {
-        private Vehicle _vehicle;
-        public concreteWifi(Vehicle vehicle):base(vehicle)
-        {
-            _vehicle = vehicle;
-        }
-        
-        private string NewMessage;
-        public string newMessage
-        {
-            get { return NewMessage; }
-            set
-            {
-                if (NewMessage != value)
-                {
-                    NewMessage= value;
-                    Notify(NewMessage,_vehicle.Name);
-                }
-            }
-        }
-    }
     public class motobikeTech:IObserver
     {
         private string Name;
         public motobikeTech(string name)
         {
             Name = name;
+            Console.WriteLine($"The light vehicle and heavy vehicle technician: {Name} was sent the following message:");
         }
         public void Update(string newMessage)
         {
-            Console.Write($"{Name}\t{newMessage}");
+            Console.Write($"{newMessage}");
         }
+        
     }
     public class HeavyLightTech : IObserver
     {
@@ -1149,10 +1079,13 @@ namespace ABC_System
         public HeavyLightTech(string name)
         {
             Name = name;
+            Console.Write($"The light vehicle and heavy vehicle technician: {Name} was sent the following message:");
         }
+        
         public void Update(string newMessage)
         {
-            Console.Write($"{Name}\t{newMessage}");
+            Console.Write($"{newMessage}");
         }
+        
     }
 }
