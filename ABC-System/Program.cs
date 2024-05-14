@@ -32,25 +32,25 @@ namespace ABC_System
             char sound = 'c';
             char wifi = 'c';
             char camera='c';
-            Console.WriteLine("Choose one choice from each option\nA. Carrier capabilities:\n=========================\n1) Good and Driver.\n2) 2 people max and bag.\n3) 5 people max and few luggage.\n4) 20 people max.\n5) 65 people max.\n\nB. Engine\n==========\n1) Small engine.\n2) Medium engine.\n3) Large engine.\n4) Extra large engine.\n\nC.Towing capabilities\r\n======================\n1) can tow.\n2) cannot tow.");
+            Console.WriteLine("Choose one choice from each option\nA. Carrier capabilities:\n=========================\n1) Good and Driver.\n2) 2 people max and bag.\n5) 5 people max and few luggage.\n20) 20 people max.\n65) 65 people max.\n\nB. Engine\n==========\n1) Small engine.\n2) Medium engine.\n3) Large engine.\n4) Extra large engine.\n\nC.Towing capabilities\r\n======================\n1) can tow.\n2) cannot tow.");
             Console.WriteLine();
-            Console.Write("Which vehicle do you want (1/2/3): ");
+            Console.Write("Enter vehicle type (1/2/3): ");
             int vehicle=int.Parse(Console.ReadLine());
-            Console.Write("Enter a carrier capability (1,2,5,20,65): ");
+            Console.Write("Enter carrier capability (1,2,5,20,65): ");
             int y=int.Parse(Console.ReadLine());
             Console.Write("Enter engine option (1,2,3,4): ");
             int x=int.Parse(Console.ReadLine());
             Console.Write("Enter tow capability (1,2): ");
             int z=int.Parse(Console.ReadLine());
-            Console.Write("Do you want to add extra specs (y/n): ");
+            Console.Write("Add extra specs to the vehicle (y/n) ? ");
             char extraSpec=char.Parse(Console.ReadLine());
             if (extraSpec == 'y' || extraSpec == 'Y')
             {
-                Console.Write("Do you want to add sound (y/n): ");
+                Console.Write("Add sound (y/n) ? ");
                 sound=char.Parse(Console.ReadLine());
-                Console.Write("Do you want to add wi-fi (y/n): ");
+                Console.Write("Add wi-fi (y/n) ? ");
                 wifi=char.Parse(Console.ReadLine());
-                Console.Write("Do you want to add camera (y/n): ");
+                Console.Write("Add camera (y/n) ? ");
                 camera=char.Parse(Console.ReadLine());
             }
             Console.WriteLine() ; 
@@ -72,6 +72,11 @@ namespace ABC_System
                 Console.WriteLine(_heavy.Description());
                 Console.WriteLine($"Total Cost:\t{_bike.Cost(vehicle).ToString("C")}");
                 
+            }
+            else
+            {
+                Console.WriteLine("Invalid, Choose 1,2 or 3.");
+                Console.WriteLine();
             }
             Console.ReadKey();
         }
@@ -113,6 +118,11 @@ namespace ABC_System
                 {
                     _bike = new motorbike(_driver, _extraLargeStrategy, _notTow);
                 }
+                else
+                {
+                    Console.WriteLine("Invalid, choose an option from the menu");
+                    Console.WriteLine();
+                }
             }
             else if (y == 2)
             {
@@ -147,6 +157,11 @@ namespace ABC_System
                 else if (x == 4 && z == 2)
                 {
                     _bike = new motorbike(_two, _extraLargeStrategy, _notTow);
+                }
+                else
+                {
+                    Console.WriteLine("Invalid, choose an option from the menu");
+                    Console.WriteLine();
                 }
             }
             else if (y == 5)
@@ -183,8 +198,13 @@ namespace ABC_System
                 {
                     _bike = new motorbike(_five, _extraLargeStrategy, _notTow);
                 }
+                else
+                {
+                    Console.WriteLine("Invalid, choose an option from the menu");
+                    Console.WriteLine();
+                }
             }
-            if (y == 20)
+            else if (y == 20)
             {
                 if (x == 1 && z == 1)
                 {
@@ -217,6 +237,11 @@ namespace ABC_System
                 else if (x == 4 && z == 2)
                 {
                     _bike = new motorbike(_twenty, _extraLargeStrategy, _notTow);
+                }
+                else
+                {
+                    Console.WriteLine("Invalid, choose an option from the menu");
+                    Console.WriteLine();
                 }
             }
             else if (y == 65)
@@ -253,6 +278,16 @@ namespace ABC_System
                 {
                     _bike = new motorbike(_sixtyFive, _extraLargeStrategy, _notTow);
                 }
+                else
+                {
+                    Console.WriteLine("Invalid, choose an option from the menu");
+                    Console.WriteLine();
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid, choose an option from the menu");
+                Console.WriteLine();
             }
             if (sound == 'Y' || sound == 'y')
             {
@@ -309,6 +344,11 @@ namespace ABC_System
                 {
                     _light = new lightvehicle(_driver, _extraLargeStrategy, _notTow);
                 }
+                else
+                {
+                    Console.WriteLine("Invalid, choose an option from the menu");
+                    Console.WriteLine();
+                }
             }
             else if (y == 2)
             {
@@ -343,6 +383,11 @@ namespace ABC_System
                 else if (x == 4 && z == 2)
                 {
                     _light = new lightvehicle(_two, _extraLargeStrategy, _notTow);
+                }
+                else
+                {
+                    Console.WriteLine("Invalid, choose an option from the menu");
+                    Console.WriteLine();
                 }
             }
             else if (y == 5)
@@ -379,8 +424,13 @@ namespace ABC_System
                 {
                     _light = new lightvehicle(_five, _extraLargeStrategy, _notTow);
                 }
+                else
+                {
+                    Console.WriteLine("Invalid, choose an option from the menu");
+                    Console.WriteLine();
+                }
             }
-            if (y == 20)
+            else if (y == 20)
             {
                 if (x == 1 && z == 1)
                 {
@@ -413,6 +463,11 @@ namespace ABC_System
                 else if (x == 4 && z == 2)
                 {
                     _light = new lightvehicle(_twenty, _extraLargeStrategy, _notTow);
+                }
+                else
+                {
+                    Console.WriteLine("Invalid, choose an option from the menu");
+                    Console.WriteLine();
                 }
             }
             else if (y == 65)
@@ -449,6 +504,16 @@ namespace ABC_System
                 {
                     _light = new lightvehicle(_sixtyFive, _extraLargeStrategy, _notTow);
                 }
+                else
+                {
+                    Console.WriteLine("Invalid, choose an option from the menu");
+                    Console.WriteLine();
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid, choose an option from the menu");
+                Console.WriteLine();
             }
             if (sound == 'Y' || sound == 'y')
             {
@@ -503,6 +568,11 @@ namespace ABC_System
                 {
                     _heavy = new heavyvehicle(_driver, _extraLargeStrategy, _notTow);
                 }
+                else
+                {
+                    Console.WriteLine("Invalid, choose an option from the menu");
+                    Console.WriteLine();
+                }
             }
             else if (y == 2)
             {
@@ -537,6 +607,11 @@ namespace ABC_System
                 else if (x == 4 && z == 2)
                 {
                     _heavy = new heavyvehicle(_two, _extraLargeStrategy, _notTow);
+                }
+                else
+                {
+                    Console.WriteLine("Invalid, choose an option from the menu");
+                    Console.WriteLine();
                 }
             }
             else if (y == 5)
@@ -573,8 +648,13 @@ namespace ABC_System
                 {
                     _heavy = new heavyvehicle(_five, _extraLargeStrategy, _notTow);
                 }
+                else
+                {
+                    Console.WriteLine("Invalid, choose an option from the menu");
+                    Console.WriteLine();
+                }
             }
-            if (y == 20)
+            else if (y == 20)
             {
                 if (x == 1 && z == 1)
                 {
@@ -607,6 +687,11 @@ namespace ABC_System
                 else if (x == 4 && z == 2)
                 {
                     _heavy = new heavyvehicle(_twenty, _extraLargeStrategy, _notTow);
+                }
+                else
+                {
+                    Console.WriteLine("Invalid, choose an option from the menu");
+                    Console.WriteLine();
                 }
             }
             else if (y == 65)
@@ -643,6 +728,16 @@ namespace ABC_System
                 {
                     _heavy = new heavyvehicle(_sixtyFive, _extraLargeStrategy, _notTow);
                 }
+                else
+                {
+                    Console.WriteLine("Invalid, choose an option from the menu");
+                    Console.WriteLine();
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid, choose an option from the menu");
+                Console.WriteLine();
             }
             if (sound == 'Y' || sound == 'y')
             {
@@ -661,28 +756,57 @@ namespace ABC_System
         }
         static void technician(int type, WiFi _wifi,char sound)
         {
-            Console.Write("Enter technician to update: ");
-            string techName = Console.ReadLine();
+            string[] motoTech ={ "John", "Smith" };
+            string[] HeavyLightTech = { "Lisa", "Sam" };
+            int count = 2;
+            Console.Write("Do you want to add a new technician (y/n): ");
+            char newTechnician=char.Parse(Console.ReadLine());
+            if(newTechnician == 'Y'|| newTechnician == 'y')
+            {
+                Console.Write("How many technician do you want to add: ");
+                int TechnicianNumber=int.Parse(Console.ReadLine());
+                for(int i=0; i<=TechnicianNumber; i++)
+                {
+                    Console.Write("Enter the name of a technician you would also like update: ");
+                    string techName = Console.ReadLine();
+                    if(type== 1)
+                    {
+                        motoTech[count] = techName;
+                    }
+                    else if(type== 2 ||type==3)
+                    {
+                        HeavyLightTech[count] = techName;
+                    }
+                    count=count+1;
+                } 
+            }
             if (type == 1)
             {
-                motobikeTech _motoTech = new motobikeTech(techName);
-                _wifi.AddTechnician(_motoTech, type);
+                for(int x = 0; x < motoTech.Length; x = x+1)
+                {
+                    motobikeTech _motoTech = new motobikeTech(motoTech[x]);
+                    _wifi.AddTechnician(_motoTech, type);
+                }
+               
                 Console.WriteLine();
             }
             else if (type == 2 || type == 3)
             {
-                HeavyLightTech _heavylightTech = new HeavyLightTech(techName);
-                _wifi.AddTechnician(_heavylightTech, type);
+                for (int x = 0; x < HeavyLightTech.Length; x = x + 1)
+                {
+                    HeavyLightTech _heavylightTech = new HeavyLightTech(HeavyLightTech[x]);
+                    _wifi.AddTechnician(_heavylightTech, type);
+                }
                 Console.WriteLine();
             }
             if (sound == 'y' || sound == 'Y')
             {
-                _wifi.GetState($"has wifi installed perform diagnostics or provide daily news about specials at ABC systems , and also update the sound system.");
+                _wifi.GetState($"has wifi installed diagnostics can be performed or daily news can be provided, and the sound system can be updated.");
                 Console.WriteLine();
             }
             else
             {
-                _wifi.GetState($"has wifi installed perform diagnostics or provide daily news about specials at ABC systems.");
+                _wifi.GetState($"has wifi installed diagnostics can be performed or daily news can be provided.");
                 Console.WriteLine();
             }
         }
@@ -1036,11 +1160,11 @@ namespace ABC_System
         public motobikeTech(string name)
         {
             Name = name;
-            Console.WriteLine($"The light vehicle and heavy vehicle technician, {Name} was sent the following message:");
         }
         public void Update(string newMessage)
         {
-            Console.WriteLine($"{newMessage}");
+            Console.WriteLine($"{Name} received the following message: \n{newMessage}");
+            Console.WriteLine();
         }    
     }
     public class HeavyLightTech : IObserver
@@ -1049,11 +1173,11 @@ namespace ABC_System
         public HeavyLightTech(string name)
         {
             Name = name;
-            Console.Write($"The light vehicle and heavy vehicle technician, {Name} was sent the following message:");
         }
         public void Update(string newMessage)
         {
-            Console.WriteLine($"{newMessage}");
+            Console.WriteLine($"{Name} received the following message: \n{newMessage}");
+            Console.WriteLine();
         }
         
     }
